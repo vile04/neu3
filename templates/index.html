@@ -1,0 +1,318 @@
+{% extends "base.html" %}
+
+{% block title %}Psychological Market Research Platform{% endblock %}
+
+{% block content %}
+<div class="hero-section">
+    <div class="hero-content">
+        <h1 class="hero-title">
+            <span class="gradient-text">Advanced Psychological</span><br>
+            Market Research Platform
+        </h1>
+        <p class="hero-description">
+            Harness the power of AI-driven psychological analysis to understand your market at the deepest level. 
+            Generate comprehensive 25,000+ character reports using advanced mental drivers, avatar profiling, 
+            and objection analysis frameworks.
+        </p>
+        <div class="hero-features">
+            <div class="feature-item">
+                <i class="fas fa-brain"></i>
+                <span>19 Mental Drivers</span>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-users"></i>
+                <span>Deep Avatar Analysis</span>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-shield-alt"></i>
+                <span>Anti-Objection System</span>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-eye"></i>
+                <span>Visual Proof (PROVIs)</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="analysis-form-section">
+    <div class="container">
+        <div class="form-card">
+            <div class="form-header">
+                <h2>Start Your Psychological Analysis</h2>
+                <p>Provide your product and market information to generate a comprehensive psychological analysis report.</p>
+            </div>
+            
+            <form id="analysis-form" class="analysis-form">
+                <div class="form-group">
+                    <label for="product_name" class="form-label">
+                        <i class="fas fa-box"></i>
+                        Product/Service Name
+                    </label>
+                    <input type="text" id="product_name" name="product_name" class="form-input" required 
+                           placeholder="Enter your product or service name">
+                </div>
+
+                <div class="form-group">
+                    <label for="product_description" class="form-label">
+                        <i class="fas fa-align-left"></i>
+                        Product Description
+                    </label>
+                    <textarea id="product_description" name="product_description" class="form-textarea" 
+                              rows="4" required placeholder="Describe your product, its main benefits, and unique value proposition..."></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="target_market" class="form-label">
+                            <i class="fas fa-crosshairs"></i>
+                            Target Market
+                        </label>
+                        <input type="text" id="target_market" name="target_market" class="form-input" required 
+                               placeholder="e.g., Small business owners, Digital marketers">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="price_range" class="form-label">
+                            <i class="fas fa-dollar-sign"></i>
+                            Price Range
+                        </label>
+                        <select id="price_range" name="price_range" class="form-select" required>
+                            <option value="">Select price range</option>
+                            <option value="under_100">Under $100</option>
+                            <option value="100_500">$100 - $500</option>
+                            <option value="500_1000">$500 - $1,000</option>
+                            <option value="1000_5000">$1,000 - $5,000</option>
+                            <option value="5000_10000">$5,000 - $10,000</option>
+                            <option value="over_10000">Over $10,000</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="competition_keywords" class="form-label">
+                        <i class="fas fa-search"></i>
+                        Competition Keywords
+                    </label>
+                    <input type="text" id="competition_keywords" name="competition_keywords" class="form-input" 
+                           placeholder="Enter keywords to research your competition (comma-separated)">
+                    <small class="form-help">Optional: Help us understand your competitive landscape</small>
+                </div>
+
+                <div class="analysis-options">
+                    <h3>Analysis Framework Options</h3>
+                    <div class="option-grid">
+                        <div class="option-card active" data-option="mental_drivers">
+                            <i class="fas fa-brain"></i>
+                            <h4>Mental Drivers</h4>
+                            <p>19 universal psychological triggers</p>
+                        </div>
+                        <div class="option-card active" data-option="avatar_analysis">
+                            <i class="fas fa-user-circle"></i>
+                            <h4>Avatar Analysis</h4>
+                            <p>Deep psychological profiling</p>
+                        </div>
+                        <div class="option-card active" data-option="objection_mapping">
+                            <i class="fas fa-shield-alt"></i>
+                            <h4>Objection Mapping</h4>
+                            <p>Anti-objection engineering</p>
+                        </div>
+                        <div class="option-card active" data-option="provi_system">
+                            <i class="fas fa-eye"></i>
+                            <h4>PROVI System</h4>
+                            <p>Visual proof demonstrations</p>
+                        </div>
+                        <div class="option-card active" data-option="prepitch_architecture">
+                            <i class="fas fa-sitemap"></i>
+                            <h4>Pre-Pitch Architecture</h4>
+                            <p>Invisible persuasion sequence</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary" id="start-analysis-btn">
+                        <i class="fas fa-rocket"></i>
+                        <span>Start Psychological Analysis</span>
+                        <div class="btn-loader hidden">
+                            <div class="loader-spinner"></div>
+                        </div>
+                    </button>
+                </div>
+
+                <div class="analysis-info">
+                    <div class="info-item">
+                        <i class="fas fa-clock"></i>
+                        <span>Estimated Time: 35-45 minutes</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-file-alt"></i>
+                        <span>Report Length: 25,000+ characters</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-download"></i>
+                        <span>PDF Export Available</span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="features-section">
+    <div class="container">
+        <h2 class="section-title">Comprehensive Analysis Framework</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-search-plus"></i>
+                </div>
+                <h3>Multi-Source Research</h3>
+                <p>Advanced web scraping and AI analysis using Google, Serper, and specialized search APIs for comprehensive market intelligence.</p>
+                <ul class="feature-list">
+                    <li>Google Custom Search integration</li>
+                    <li>Serper API for enhanced results</li>
+                    <li>Content extraction and analysis</li>
+                    <li>Competitive intelligence gathering</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <h3>Multi-AI Analysis</h3>
+                <p>Leverage the power of OpenAI GPT-4o, Google Gemini 2.5-Pro, and HuggingFace models for deep psychological insights.</p>
+                <ul class="feature-list">
+                    <li>OpenAI GPT-4o analysis</li>
+                    <li>Google Gemini insights</li>
+                    <li>HuggingFace model integration</li>
+                    <li>Cross-validated findings</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h3>Psychological Frameworks</h3>
+                <p>Advanced psychological analysis using proven frameworks for mental drivers, objection handling, and persuasion architecture.</p>
+                <ul class="feature-list">
+                    <li>19 Universal Mental Drivers</li>
+                    <li>Deep avatar psychological profiling</li>
+                    <li>Anti-objection engineering</li>
+                    <li>Pre-pitch invisible architecture</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-chart-bar"></i>
+                </div>
+                <h3>Actionable Insights</h3>
+                <p>Receive detailed, implementable strategies with specific scripts, frameworks, and step-by-step implementation guides.</p>
+                <ul class="feature-list">
+                    <li>Detailed implementation roadmaps</li>
+                    <li>Ready-to-use scripts and phrases</li>
+                    <li>Visual proof (PROVI) demonstrations</li>
+                    <li>Performance tracking metrics</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="cta-section">
+    <div class="container">
+        <div class="cta-content">
+            <h2>Ready to Unlock Your Market's Psychology?</h2>
+            <p>Join thousands of businesses using advanced psychological insights to optimize their marketing and sales strategies.</p>
+            <a href="#analysis-form" class="btn-secondary">
+                <i class="fas fa-arrow-up"></i>
+                Start Your Analysis Now
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('analysis-form');
+    const submitBtn = document.getElementById('start-analysis-btn');
+    const optionCards = document.querySelectorAll('.option-card');
+    
+    // Option card toggles
+    optionCards.forEach(card => {
+        card.addEventListener('click', function() {
+            this.classList.toggle('active');
+        });
+    });
+
+    // Form submission
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        // Show loading state
+        submitBtn.classList.add('loading');
+        submitBtn.querySelector('.btn-loader').classList.remove('hidden');
+        
+        // Create user first
+        try {
+            const userResponse = await fetch('/create_user', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username: 'user_' + Date.now(),
+                    email: 'user_' + Date.now() + '@example.com'
+                })
+            });
+            
+            if (!userResponse.ok) {
+                throw new Error('Failed to create user');
+            }
+            
+            // Start analysis
+            const formData = new FormData(form);
+            const analysisData = Object.fromEntries(formData.entries());
+            
+            const analysisResponse = await fetch('/api/start_analysis', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(analysisData)
+            });
+            
+            const result = await analysisResponse.json();
+            
+            if (result.success) {
+                // Redirect to analysis page
+                window.location.href = `/analysis/${result.analysis_id}`;
+            } else {
+                throw new Error(result.error || 'Analysis failed to start');
+            }
+            
+        } catch (error) {
+            console.error('Error:', error);
+            showNotification('Failed to start analysis: ' + error.message, 'error');
+        } finally {
+            // Reset loading state
+            submitBtn.classList.remove('loading');
+            submitBtn.querySelector('.btn-loader').classList.add('hidden');
+        }
+    });
+    
+    // Smooth scroll for CTA
+    document.querySelector('.btn-secondary').addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector('#analysis-form').scrollIntoView({
+            behavior: 'smooth'
+        });
+    });
+});
+</script>
+{% endblock %}

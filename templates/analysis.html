@@ -1,0 +1,294 @@
+{% extends "base.html" %}
+
+{% block title %}Analysis in Progress - Psychological Market Research{% endblock %}
+
+{% block content %}
+<div class="analysis-container">
+    <!-- Analysis Header -->
+    <div class="analysis-header">
+        <div class="analysis-info">
+            <h1 class="analysis-title">
+                <i class="fas fa-brain"></i>
+                Psychological Analysis in Progress
+            </h1>
+            <p class="analysis-subtitle">{{ analysis.product_name }}</p>
+            <div class="analysis-meta">
+                <span class="meta-item">
+                    <i class="fas fa-calendar"></i>
+                    Started {{ analysis.created_at.strftime('%B %d, %Y at %I:%M %p') }}
+                </span>
+                <span class="meta-item">
+                    <i class="fas fa-user"></i>
+                    Analysis ID: {{ analysis.id[:8] }}
+                </span>
+            </div>
+        </div>
+        
+        <div class="analysis-actions">
+            <button id="pause-analysis" class="btn-secondary" style="display: none;">
+                <i class="fas fa-pause"></i>
+                Pause
+            </button>
+            <button id="view-report" class="btn-primary" style="display: none;">
+                <i class="fas fa-file-alt"></i>
+                View Report
+            </button>
+        </div>
+    </div>
+
+    <!-- Progress Section -->
+    <div class="progress-section">
+        <div class="progress-card">
+            <div class="progress-header">
+                <h3>Analysis Progress</h3>
+                <span id="progress-percentage" class="progress-percentage">0%</span>
+            </div>
+            
+            <!-- Progress Bar -->
+            <div class="progress-bar-container">
+                <div class="progress-bar">
+                    <div id="progress-fill" class="progress-fill" style="width: 0%"></div>
+                </div>
+            </div>
+            
+            <!-- Current Step -->
+            <div class="current-step">
+                <div class="step-icon">
+                    <div class="spinner"></div>
+                </div>
+                <div class="step-content">
+                    <h4 id="current-step-title">Initializing Analysis...</h4>
+                    <p id="current-step-description">Setting up AI analysis pipeline and gathering initial data.</p>
+                </div>
+            </div>
+            
+            <!-- Time Estimates -->
+            <div class="time-estimates">
+                <div class="time-item">
+                    <span class="time-label">Elapsed:</span>
+                    <span id="elapsed-time" class="time-value">00:00</span>
+                </div>
+                <div class="time-item">
+                    <span class="time-label">Estimated Remaining:</span>
+                    <span id="remaining-time" class="time-value">--:--</span>
+                </div>
+                <div class="time-item">
+                    <span class="time-label">Estimated Completion:</span>
+                    <span id="completion-time" class="time-value">--:--</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Analysis Steps -->
+    <div class="steps-section">
+        <h3>Analysis Framework</h3>
+        <div class="steps-timeline">
+            <div class="step-item" data-step="market_research">
+                <div class="step-indicator">
+                    <div class="step-number">1</div>
+                    <div class="step-status">
+                        <i class="fas fa-clock step-pending"></i>
+                        <i class="fas fa-spinner fa-spin step-active hidden"></i>
+                        <i class="fas fa-check step-complete hidden"></i>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <h4>Market Research</h4>
+                    <p>Comprehensive multi-source market intelligence gathering</p>
+                    <ul class="step-details">
+                        <li>Google Custom Search analysis</li>
+                        <li>Serper API competitive research</li>
+                        <li>Content extraction and synthesis</li>
+                        <li>Market trend identification</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="step-item" data-step="avatar_analysis">
+                <div class="step-indicator">
+                    <div class="step-number">2</div>
+                    <div class="step-status">
+                        <i class="fas fa-clock step-pending"></i>
+                        <i class="fas fa-spinner fa-spin step-active hidden"></i>
+                        <i class="fas fa-check step-complete hidden"></i>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <h4>Avatar Psychology Analysis</h4>
+                    <p>Deep psychological profiling of target audience</p>
+                    <ul class="step-details">
+                        <li>Demographic and psychographic mapping</li>
+                        <li>Pain point and desire identification</li>
+                        <li>Behavioral trigger analysis</li>
+                        <li>Decision-making pattern assessment</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="step-item" data-step="mental_drivers">
+                <div class="step-indicator">
+                    <div class="step-number">3</div>
+                    <div class="step-status">
+                        <i class="fas fa-clock step-pending"></i>
+                        <i class="fas fa-spinner fa-spin step-active hidden"></i>
+                        <i class="fas fa-check step-complete hidden"></i>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <h4>Mental Drivers Framework</h4>
+                    <p>Custom psychological triggers and anchoring mechanisms</p>
+                    <ul class="step-details">
+                        <li>19 Universal Mental Drivers analysis</li>
+                        <li>Custom driver selection and optimization</li>
+                        <li>Activation sequence development</li>
+                        <li>Psychological impact measurement</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="step-item" data-step="objection_analysis">
+                <div class="step-indicator">
+                    <div class="step-number">4</div>
+                    <div class="step-status">
+                        <i class="fas fa-clock step-pending"></i>
+                        <i class="fas fa-spinner fa-spin step-active hidden"></i>
+                        <i class="fas fa-check step-complete hidden"></i>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <h4>Objection Analysis</h4>
+                    <p>Anti-objection engineering and counter-strategy development</p>
+                    <ul class="step-details">
+                        <li>Surface and hidden objection mapping</li>
+                        <li>Psychological root cause analysis</li>
+                        <li>Neutralization technique development</li>
+                        <li>Preemptive objection handling</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="step-item" data-step="provi_system">
+                <div class="step-indicator">
+                    <div class="step-number">5</div>
+                    <div class="step-status">
+                        <i class="fas fa-clock step-pending"></i>
+                        <i class="fas fa-spinner fa-spin step-active hidden"></i>
+                        <i class="fas fa-check step-complete hidden"></i>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <h4>Visual Proof System (PROVIs)</h4>
+                    <p>Physical demonstration system for abstract concepts</p>
+                    <ul class="step-details">
+                        <li>Concept-to-demonstration mapping</li>
+                        <li>Physical proof development</li>
+                        <li>Execution scripts and materials</li>
+                        <li>Risk management and alternatives</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="step-item" data-step="prepitch_architecture">
+                <div class="step-indicator">
+                    <div class="step-number">6</div>
+                    <div class="step-status">
+                        <i class="fas fa-clock step-pending"></i>
+                        <i class="fas fa-spinner fa-spin step-active hidden"></i>
+                        <i class="fas fa-check step-complete hidden"></i>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <h4>Pre-Pitch Architecture</h4>
+                    <p>Invisible persuasion sequence and psychological preparation</p>
+                    <ul class="step-details">
+                        <li>Emotional orchestration design</li>
+                        <li>Logical justification framework</li>
+                        <li>Transition optimization</li>
+                        <li>Conversion readiness assessment</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="step-item" data-step="report_generation">
+                <div class="step-indicator">
+                    <div class="step-number">7</div>
+                    <div class="step-status">
+                        <i class="fas fa-clock step-pending"></i>
+                        <i class="fas fa-spinner fa-spin step-active hidden"></i>
+                        <i class="fas fa-check step-complete hidden"></i>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <h4>Report Generation</h4>
+                    <p>Comprehensive analysis compilation and formatting</p>
+                    <ul class="step-details">
+                        <li>25,000+ character detailed report</li>
+                        <li>Implementation roadmap creation</li>
+                        <li>Strategic recommendations</li>
+                        <li>Professional PDF formatting</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Live Analysis Feed -->
+    <div class="live-feed-section">
+        <div class="live-feed-card">
+            <div class="feed-header">
+                <h3>
+                    <i class="fas fa-rss live-indicator"></i>
+                    Live Analysis Feed
+                </h3>
+                <button id="toggle-feed" class="btn-ghost">
+                    <i class="fas fa-eye"></i>
+                    <span>Hide Details</span>
+                </button>
+            </div>
+            
+            <div id="analysis-feed" class="analysis-feed">
+                <div class="feed-item">
+                    <div class="feed-timestamp">{{ analysis.created_at.strftime('%H:%M:%S') }}</div>
+                    <div class="feed-message">Analysis initiated for {{ analysis.product_name }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Section (hidden by default) -->
+    <div id="error-section" class="error-section hidden">
+        <div class="error-card">
+            <div class="error-header">
+                <i class="fas fa-exclamation-triangle"></i>
+                <h3>Analysis Error</h3>
+            </div>
+            <div class="error-content">
+                <p id="error-message">An error occurred during analysis.</p>
+                <button id="retry-analysis" class="btn-primary">
+                    <i class="fas fa-redo"></i>
+                    Retry Analysis
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/analysis.js') }}"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const analysisId = '{{ analysis.id }}';
+    
+    // Initialize analysis tracking
+    initializeAnalysisTracking(analysisId);
+    
+    // Start time tracking
+    startTimeTracking('{{ analysis.created_at.isoformat() }}');
+    
+    // Initialize WebSocket connection for real-time updates
+    initializeWebSocket(analysisId);
+});
+</script>
+{% endblock %}
