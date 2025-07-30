@@ -15,25 +15,24 @@ def start_analysis():
     try:
         data = request.get_json()
         user_id = session.get('user_id')
-        
+
         if not user_id:
             return jsonify({'success': False, 'error': 'User not authenticated'}), 401
-        
+
         # Create analysis record
         analysis = Analysis()
         analysis.user_id = user_id
         analysis.product_name = data.get('product_name')
-        analysis.product_description = data.get('product_description')
+        analysis.product_description = data.get('product_description', '')
         analysis.target_market = data.get('target_market')
-        analysis.price_range = data.get('price_range')
-        analysis.competition_keywords = data.get('competition_keywords')
+        analysis.competition_keywords = data.get('competition_keywords', [])
         analysis.status = 'processing'
         analysis.current_step = 'Initializing analysis...'
         analysis.estimated_completion = datetime.utcnow() + timedelta(minutes=45)
-        
+
         db.session.add(analysis)
         db.session.commit()
-        
+
         # Start analysis in background thread
         thread = threading.Thread(
             target=run_complete_analysis,
@@ -41,13 +40,13 @@ def start_analysis():
         )
         thread.daemon = True
         thread.start()
-        
+
         return jsonify({
             'success': True,
             'analysis_id': analysis.id,
             'estimated_completion': analysis.estimated_completion.isoformat()
         })
-        
+
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)}), 500
 
@@ -70,16 +69,16 @@ def get_analysis_status(analysis_id):
 def download_report(analysis_id):
     try:
         analysis = Analysis.query.get_or_404(analysis_id)
-        
+
         if not analysis.pdf_path or analysis.status != 'completed':
             return jsonify({'error': 'Report not ready'}), 400
-        
+
         return send_file(
             analysis.pdf_path,
             as_attachment=True,
-            download_name=f'psychological_analysis_{analysis.product_name}_{analysis_id[:8]}.pdf'
+            download_name=f'psychological_analysis_{analysis.product_name}_{analysis.analysis_id[:8]}.pdf'
         )
-        
+
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
@@ -90,10 +89,10 @@ def run_complete_analysis(analysis_id, input_data):
         analysis = Analysis.query.get(analysis_id)
         if not analysis:
             raise ValueError(f"Analysis {analysis_id} not found")
-            
+
         # Usar sistema de backup simplificado
         backup_manager = SimpleBackupManager()
-        
+
         # Update progress function
         def update_progress(step, progress, message):
             if analysis:
@@ -103,21 +102,23 @@ def run_complete_analysis(analysis_id, input_data):
                 # socketio.emit('analysis_progress', {  # Temporarily disabled
                 #     'analysis_id': analysis_id,
                 #     'progress': progress,
-                #     'current_step': message,
-                #     'step': step
+                #     'current_step': step,
+                #     'message': message
                 # })
-        
+
         # Executar análise completa com sistema de backup
         update_progress('analysis_start', 10, 'Iniciando análise com sistema de backup automático...')
-        
+        # Simulate a long-running analysis process
+        # time.sleep(5)
+
         # Preparar dados para análise
         product_name = input_data.get('product_name', '')
         product_description = input_data.get('product_description', '')
         target_market = input_data.get('target_market', '')
         competition_keywords = input_data.get('competition_keywords', [])
-        
+
         update_progress('data_collection', 30, 'Coletando dados de mercado com backups automáticos...')
-        
+
         # Executar análise completa
         result = backup_manager.execute_analysis(
             product_name=product_name,
@@ -125,9 +126,9 @@ def run_complete_analysis(analysis_id, input_data):
             target_market=target_market,
             competition_keywords=competition_keywords
         )
-        
+
         update_progress('analysis_processing', 60, 'Processando análise psicológica...')
-        
+
         if result['success']:
             # Salvar resultados
             analysis.results = result['report']
@@ -138,9 +139,9 @@ def run_complete_analysis(analysis_id, input_data):
                 'report_stats': result['report_stats'],
                 'warnings': result.get('warnings', [])
             }
-            
+
             update_progress('report_generation', 80, 'Gerando relatório final...')
-            
+
             # Gerar PDF se possível
             try:
                 from services.pdf_generator import PDFGenerator
@@ -151,33 +152,37 @@ def run_complete_analysis(analysis_id, input_data):
                 )
                 analysis.pdf_path = pdf_path
             except Exception as e:
-                # PDF generation não é crítico
+                # PDF generation is not critical
                 import logging
                 logging.warning(f"Erro ao gerar PDF: {e}")
-            
+
         else:
             # Erro na análise
-            raise Exception(result.get('error', 'Erro desconhecido na análise'))
-        
+            raise Exception(result.get("error", "Erro desconhecido na análise"))
+
             # Finalizar análise
             analysis.status = 'completed'
             analysis.progress = 100
             analysis.completed_at = datetime.utcnow()
             analysis.current_step = f'Análise concluída! Qualidade: {result["quality_score"]:.1f}%'
             db.session.commit()
-            
+
             update_progress('completed', 100, f'Análise concluída com sucesso! Qualidade: {result["quality_score"]:.1f}%')
+
         else:
             # Erro na análise
             raise Exception(result.get('error', 'Erro desconhecido na análise'))
-        
+
     except Exception as e:
         if analysis:
             analysis.status = 'error'
             analysis.error_message = str(e)
             db.session.commit()
-        
-        # socketio.emit('analysis_error', {  # Temporarily disabled
-        #     'analysis_id': analysis_id,
-        #     'error': str(e)
-        # })
+            # socketio.emit('analysis_error', {  # Temporarily disabled
+            #     'analysis_id': analysis_id,
+            #     'error': str(e)
+            # })
+
+
+
+
