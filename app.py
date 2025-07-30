@@ -1,4 +1,6 @@
 import os
+from dotenv import load_dotenv
+load_dotenv()
 import logging
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
@@ -20,7 +22,7 @@ def create_app():
 
     # Configuration
     app.secret_key = os.environ.get("SESSION_SECRET", "dev-secret-key")
-    app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL", "sqlite:///psychanalytica.db")
+    app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
     app.config["SQLALCHEMY_ENGINE_OPTIONS"] = {
         "pool_recycle": 300,
         "pool_pre_ping": True,
