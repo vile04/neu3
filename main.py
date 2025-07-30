@@ -14,7 +14,7 @@ if __name__ == '__main__':
     print(f"💡 Servidor iniciado em: http://localhost:{port}")
     print(f"🔗 Interface de análise psicológica pronta!")
     print(f"*> Pressione Ctrl+C para parar")
-    print(f"""")
+    print("""")
 
     try:
         app.run(host=\"0.0.0.0\", port=port, debug=debug, use_reloader=False)
